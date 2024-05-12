@@ -4,7 +4,6 @@ import org.bukkit.entity.Player
 import taboolib.common.platform.ProxyPlayer
 import taboolib.library.kether.*
 import taboolib.module.kether.*
-import taboolib.platform.type.BukkitPlayer
 import top.lanscarlos.vulpecula.bacikal.action.ActionBlock
 
 /**
@@ -149,5 +148,5 @@ fun QuestContext.Frame.playerOrNull(): ProxyPlayer? {
 }
 
 fun ProxyPlayer.toBukkit(): Player? {
-    return (this as? BukkitPlayer)?.player
+    return this.castSafely()
 }

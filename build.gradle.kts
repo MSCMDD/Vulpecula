@@ -1,31 +1,27 @@
-
-val taboolib_version: String by project
+import io.izzel.taboolib.gradle.*
 
 plugins {
-    `java-library`
-    `maven-publish`
-    id("io.izzel.taboolib") version "1.50"
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    java
+    id("io.izzel.taboolib") version "2.0.11"
+    id("org.jetbrains.kotlin.jvm") version "1.8.22"
 }
 
 taboolib {
-    install("common")
-    install("common-5")
-    install("module-chat")
-    install("module-configuration")
-    install("module-database")
-    install("module-effect")
-    install("module-kether")
-    install("module-lang")
-    install("module-metrics")
-    install("module-nms")
-    install("module-nms-util")
-    install("expansion-command-helper")
-    install("expansion-javascript")
-    install("platform-bukkit")
-    classifier = null
-    version = taboolib_version
-
+    env {
+        install(
+            UNIVERSAL,
+            DATABASE,
+            EFFECT,
+            NMS_UTIL,
+            KETHER,
+            UI,
+            METRICS,
+            BUKKIT_ALL
+        )
+    }
+    version {
+        taboolib = "6.1.1-beta27"
+    }
     description {
         contributors {
             name("Lanscarlos")
@@ -47,7 +43,8 @@ taboolib {
 
 repositories {
     mavenLocal()
-    maven { url = uri("https://repo.tabooproject.org/repository/releases/") }
+    maven("https://repo.spongepowered.org/maven")
+    maven("https://repo.tabooproject.org/repository/releases")
     mavenCentral()
 }
 
@@ -85,25 +82,4 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_14
     targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-publishing {
-    repositories {
-        maven {
-            url = uri("https://repo.tabooproject.org/repository/releases")
-            credentials {
-                username = project.findProperty("taboolibUsername").toString()
-                password = project.findProperty("taboolibPassword").toString()
-            }
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-        }
-    }
-    publications {
-        create<MavenPublication>("library") {
-            from(components["java"])
-            groupId = project.group.toString()
-        }
-    }
 }

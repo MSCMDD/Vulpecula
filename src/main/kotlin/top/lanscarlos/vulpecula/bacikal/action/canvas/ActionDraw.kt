@@ -5,7 +5,6 @@ import org.bukkit.entity.Entity
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.util.Location
 import taboolib.module.kether.*
-import taboolib.platform.type.BukkitPlayer
 import taboolib.platform.util.toProxyLocation
 import top.lanscarlos.vulpecula.bacikal.BacikalParser
 import top.lanscarlos.vulpecula.bacikal.LiveData.Companion.readerOf
@@ -49,7 +48,7 @@ object ActionDraw {
             val target = location ?: when (val bind = this.getVariable<Any?>(ActionCanvas.VARIABLE_TARGET)) {
                 is Block -> bind.location.toProxyLocation()
                 is Entity -> bind.location.toProxyLocation()
-                is BukkitPlayer -> bind.location
+                is ProxyPlayer -> bind.location
                 else -> playerOrNull()?.location ?: error("No target location selected.")
             }
 

@@ -14,9 +14,9 @@ import taboolib.common.util.Vector
 import taboolib.library.kether.LoadError
 import taboolib.library.xseries.XMaterial
 import taboolib.module.kether.ScriptFrame
-import taboolib.platform.type.BukkitPlayer
 import taboolib.platform.util.buildItem
 import taboolib.platform.util.toProxyLocation
+import top.lanscarlos.vulpecula.bacikal.LiveData.Companion.liveEntity
 import java.awt.Color
 import java.util.concurrent.CompletableFuture
 
@@ -333,7 +333,7 @@ open class LiveData<T>(
                 return when (this) {
                     is Entity -> this
                     is OfflinePlayer -> this.player
-                    is ProxyPlayer -> (this as? BukkitPlayer)?.player
+                    is ProxyPlayer -> this.castSafely()
                     is String -> Bukkit.getPlayerExact(this)
                     else -> null
                 }
@@ -344,7 +344,7 @@ open class LiveData<T>(
                 return when (this) {
                     is Player -> this
                     is OfflinePlayer -> this.player
-                    is ProxyPlayer -> (this as? BukkitPlayer)?.player
+                    is ProxyPlayer -> this.castSafely()
                     is String -> Bukkit.getPlayerExact(this)
                     else -> null
                 }
@@ -371,7 +371,7 @@ open class LiveData<T>(
                 return when (this) {
                     is Inventory -> this
                     is HumanEntity -> this.inventory
-                    is BukkitPlayer -> this.player.inventory
+                    is ProxyPlayer -> this.castSafely<Player>()?.inventory
                     is String -> {
                         Bukkit.getPlayerExact(this)?.inventory
                     }

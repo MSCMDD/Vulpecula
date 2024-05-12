@@ -2,9 +2,10 @@ package top.lanscarlos.vulpecula.bacikal.action.canvas
 
 import org.bukkit.block.Block
 import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
+import taboolib.common.platform.ProxyPlayer
 import taboolib.library.kether.ParsedAction
 import taboolib.module.kether.*
-import taboolib.platform.type.BukkitPlayer
 import top.lanscarlos.vulpecula.bacikal.BacikalParser
 import top.lanscarlos.vulpecula.bacikal.bacikal
 import java.util.*
@@ -79,7 +80,7 @@ object ActionCanvas {
                 val extendId = when (bind) {
                     is Block -> bind.location.toString()
                     is Entity -> bind.uniqueId.toString()
-                    is BukkitPlayer -> bind.player.uniqueId.toString()
+                    is ProxyPlayer -> bind.cast<Player>().uniqueId.toString()
                     else -> bind?.toString()
                 }
                 val uniqueId =  if (extendId != null) mainId + '_' + extendId else mainId

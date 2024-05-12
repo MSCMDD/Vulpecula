@@ -1,7 +1,8 @@
 package top.lanscarlos.vulpecula.bacikal.action.target.selector
 
+import org.bukkit.entity.Player
+import taboolib.common.platform.ProxyPlayer
 import taboolib.module.kether.script
-import taboolib.platform.type.BukkitPlayer
 import top.lanscarlos.vulpecula.bacikal.action.target.ActionTarget
 
 /**
@@ -23,7 +24,7 @@ object ActionTargetSelectSelf : ActionTarget.Resolver {
 
                 // 加入自身
                 when (val it = this.script().sender) {
-                    is BukkitPlayer -> target += it.player
+                    is ProxyPlayer -> target += it.cast<Player>()
                     else -> {
                         if (it != null) target += it
                     }

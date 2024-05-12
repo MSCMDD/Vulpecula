@@ -6,8 +6,9 @@ import org.bukkit.block.Block
 import org.bukkit.block.Container
 import org.bukkit.entity.ChestedHorse
 import org.bukkit.entity.HumanEntity
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import taboolib.platform.type.BukkitPlayer
+import taboolib.common.platform.ProxyPlayer
 import top.lanscarlos.vulpecula.utils.playerOrNull
 import top.lanscarlos.vulpecula.utils.setVariable
 import top.lanscarlos.vulpecula.utils.toBukkit
@@ -33,8 +34,8 @@ object ActionInventorySwitch : ActionInventory.Resolver {
                         target.inventory
                     }
 
-                    is BukkitPlayer -> {
-                        target.player.inventory
+                    is ProxyPlayer -> {
+                        target.castSafely<Player>()?.inventory
                     }
 
                     is OfflinePlayer -> {

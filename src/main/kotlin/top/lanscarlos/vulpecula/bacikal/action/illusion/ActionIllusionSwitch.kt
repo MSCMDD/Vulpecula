@@ -3,7 +3,7 @@ package top.lanscarlos.vulpecula.bacikal.action.illusion
 import org.bukkit.Bukkit
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.Player
-import taboolib.platform.type.BukkitPlayer
+import taboolib.common.platform.ProxyPlayer
 import top.lanscarlos.vulpecula.bacikal.Bacikal
 import top.lanscarlos.vulpecula.utils.setVariable
 
@@ -30,8 +30,8 @@ object ActionIllusionSwitch : ActionIllusion.Resolver {
                     is Player -> {
                         listOf(source)
                     }
-                    is BukkitPlayer -> {
-                        listOf(source.player)
+                    is ProxyPlayer -> {
+                        listOf(source.cast<Player>())
                     }
                     is OfflinePlayer -> {
                         source.player?.let { listOf(it) } ?: return@combine false
@@ -43,7 +43,7 @@ object ActionIllusionSwitch : ActionIllusion.Resolver {
                         source.mapNotNull {
                             when (it) {
                                 is Player -> it
-                                is BukkitPlayer -> it.player
+                                is ProxyPlayer -> it.castSafely()
                                 is String -> Bukkit.getPlayerExact(it)
                                 is OfflinePlayer -> it.player
                                 else -> null
