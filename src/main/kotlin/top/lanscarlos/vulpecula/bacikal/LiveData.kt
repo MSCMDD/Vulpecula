@@ -16,7 +16,6 @@ import taboolib.library.xseries.XMaterial
 import taboolib.module.kether.ScriptFrame
 import taboolib.platform.util.buildItem
 import taboolib.platform.util.toProxyLocation
-import top.lanscarlos.vulpecula.bacikal.LiveData.Companion.liveEntity
 import java.awt.Color
 import java.util.concurrent.CompletableFuture
 
