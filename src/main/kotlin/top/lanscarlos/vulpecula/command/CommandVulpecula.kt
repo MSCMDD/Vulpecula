@@ -44,6 +44,8 @@ object CommandVulpecula {
                             set("player", sender)
                             set("hand", sender.equipment?.itemInMainHand)
                         }
+                    }.thenAccept {
+                        sender.sendMessage(" §5§l‹ ›§r §7Result: §f$it")
                     }
                 } catch (e: Exception) {
                     e.printKetherErrorMessage()
