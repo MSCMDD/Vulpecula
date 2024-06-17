@@ -20,7 +20,7 @@ taboolib {
         )
     }
     version {
-        taboolib = "6.1.1-beta27"
+        taboolib = "6.1.2-beta9"
     }
     description {
         contributors {
